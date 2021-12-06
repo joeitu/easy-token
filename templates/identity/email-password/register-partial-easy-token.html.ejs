@@ -15,6 +15,16 @@
   <ol>
     <li class="radio">
       <label>
+        <input type="radio" id="createWebIdOn" name="createWebId" value="on"<%
+        if (isBlankForm || prefilled.createWebId) { %> checked<% } %>>
+        Create a new WebID for my Pod.
+      </label>
+      <p id="createWebIdForm">
+        Please also create a Pod below, since your WebID will be stored there.
+      </p>
+    </li>
+    <li class="radio">
+      <label>
         <input type="radio" id="createWebIdOff" name="createWebId" value=""<%
         if (!isBlankForm && !prefilled.createWebId) { %> checked<% } %>>
         Use my existing WebID to access my Pod.
@@ -186,16 +196,6 @@
     synchronizeInputFields();
     elements.mainForm.classList.add('loaded');
   });
-
-  // testing
-  function trigger() {
-      try {
-        let profileCardUrl = 'https://tmey.solidcommunity.net/profile/card#me';
-        myProfileCard = getSolidDataset(profileCardUrl, { fetch: fetch });
-      } catch (error) {
-          console.error(error.message);
-      }  
-  };
 
   // Enable all elements on form submission (otherwise their value is not submitted)
   elements.mainForm.addEventListener('submit', () => {

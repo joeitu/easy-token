@@ -1,5 +1,23 @@
 <h1>Sign up</h1>
 <form method="post" id="mainForm">
+    OIDC provider:
+      <input type="text" id="oidcIssuer" value="https://solidcommunity.net"></textarea>
+      <br>
+    <button type="button" name="btnLogin" id="btnLogin">Login</button>
+    <span id="labelStatus" style="color:blue;"></span>
+    <br>
+    <br>
+
+    Token: 
+      <input type="text" id="tokenValue" value="d34db33f"></textarea>
+      <br>
+    <button type="button" name="btnAdd" id="btnAdd">Add token to WebId</button>
+    <button type="button" name="btnAlert" id="btnAlert">Test alert</button>
+    <span id="sendStatus" style="color:blue;"></span>
+
+
+  <script src="/.well_known/scripts/main.js"></script>
+
 
   <% if (locals.message) { %>
     <p class="error">Error: <%= message %></p>
@@ -9,3 +27,4 @@
 
   <p class="actions"><button type="submit" name="submit">Sign up</button></p>
 </form>
+

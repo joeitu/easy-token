@@ -32,6 +32,9 @@ export class TokenOwnershipValidator extends OwnershipValidator {
   public async handle({ webId }: { webId: string }): Promise<void> {
     const key = this.getTokenKey(webId);
     let token = await this.storage.get(key);
+  this.logger.info("token = " + token);
+    this.logger.info("key = " + key);
+
 
     // No reason to fetch the WebId if we don't have a token yet
     if (!token) {
@@ -39,6 +42,7 @@ export class TokenOwnershipValidator extends OwnershipValidator {
       await this.storage.set(key, token, this.expiration);
       this.throwError(webId, token);
     }
+
 
     // Verify if the token can be found in the WebId
     if (!await this.hasToken(webId, token)) {
@@ -91,6 +95,7 @@ export class TokenOwnershipValidator extends OwnershipValidator {
       'to prove it belongs to you.',
       'You can remove this triple again after validation.',
     ].join(' ');
+
     const details = { quad: `<${webId}> <${SOLID.oidcIssuerRegistrationToken}> "${token}".` };
     throw new BadRequestHttpError(errorMessage, { details });
   }

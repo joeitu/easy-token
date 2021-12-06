@@ -16,6 +16,10 @@
           "StaticAssetHandler:_assets_value": "@css:templates/styles/"
         },
         {
+          "StaticAssetHandler:_assets_key": "/.well_known/scripts/",
+          "StaticAssetHandler:_assets_value": "@css:templates/scripts/"
+        },
+        {
           "StaticAssetHandler:_assets_key": "/.well_known/css/fonts/",
           "StaticAssetHandler:_assets_value": "@css:templates/fonts/"
         },
