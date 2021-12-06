@@ -3,20 +3,22 @@
     OIDC provider:
       <input type="text" id="oidcIssuer" value="https://solidcommunity.net"></textarea>
       <br>
-    <button type="button" name="btnLogin" id="btnLogin">Login</button>
+    <button type="button" name="btnLogin" id="btnLogin">1. Login</button>
     <span id="labelStatus" style="color:blue;"></span>
     <br>
     <br>
 
     Token: 
-      <input type="text" id="tokenValue" value="d34db33f"></textarea>
+      <input type="text" id="tokenValue" value="d34db33f"></input>
       <br>
-    <button type="button" name="btnAdd" id="btnAdd">Add token to WebId</button>
-    <button type="button" name="btnAlert" id="btnAlert">Test alert</button>
+    <button type="button"  id="fetchToken">2. Fetch token</button>
+    <button type="button" name="btnAdd" id="btnAdd">3. Add token to WebId</button>
+<br/>    <button type="button" name="btnAlert" id="btnAlert">Test alert</button>
     <span id="sendStatus" style="color:blue;"></span>
 
 
-  <script src="/.well_known/scripts/main.js"></script>
+  <script src="/.well_known/scripts/easy_token/main.js"></script>
+  <script src="/.well_known/scripts/easy_token/fetch_token.js"></script>
 
 
   <% if (locals.message) { %>
