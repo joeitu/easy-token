@@ -1,12 +1,4 @@
 async function fetch_token(form_data) {
-  data = {"email":"b@b.b",
-          "password": "b",
-          "confirmPassword":"b",
-          "podName":"b",
-          "register": "on",
-          "createPod": "on",
-          "webId": ".."}
-
   resp = await fetch("http://localhost:8081/idp/register/",
                       {method: "POST",
                        headers:{
@@ -33,13 +25,6 @@ function get_form_data() {
   const register = document.getElementById("register").value; // on off
   const createPod = document.getElementById("createPod").value; // on off
   const webId = document.getElementById("webId").value;
-  data2 = {"email":"b@b.b",
-          "password": "b",
-          "confirmPassword":"b",
-          "podName":"b",
-          "register": "on",
-          "createPod": "on",
-          "webId": "..webid..."}
 
   data = {"email": email,
            "password": password,
@@ -48,10 +33,6 @@ function get_form_data() {
            "register": register,
            "createPod": createPod,
            "webId": webId           }
-  console.log('data1')
-  console.log(data)
-  console.log('data2')
-  console.log(data2)
   return data
 }
 
