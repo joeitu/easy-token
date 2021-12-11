@@ -16,7 +16,7 @@
     <li class="radio">
       <label>
         <input type="radio" id="createWebIdOn" name="createWebId" value="on"<%
-        if (isBlankForm || prefilled.createWebId) { %> checked<% } %>>
+        if (!isBlankForm && !prefilled.createWebId) { %> checked<% } %>>
         Create a new WebID for my Pod.
       </label>
       <p id="createWebIdForm">
@@ -26,7 +26,7 @@
     <li class="radio">
       <label>
         <input type="radio" id="createWebIdOff" name="createWebId" value=""<%
-        if (!isBlankForm && !prefilled.createWebId) { %> checked<% } %>>
+        if (isBlankForm || prefilled.createWebId) { %> checked<% } %>>
         Use my existing WebID to access my Pod.
       </label>
       <ol id="existingWebIdForm">
@@ -34,7 +34,7 @@
           <label for="webId">Existing WebID:</label>
           <input id="webId" type="text" name="webId" value="<%= prefilled.webId || '' %>">
         </li>
-      <a onclick="trigger()" href="#">Proove that I own this WebId</a>
+    <button type="button"  id="prooveWebID">Proove that I own this WebId</button>
         <li class="checkbox">
           <label>
             <input type="checkbox" id="register" name="register"<%
@@ -109,6 +109,36 @@
     </ol>
   </div>
 </fieldset>
+<!-- easyToken script for the "Proove that I own this webid button -->
+  <script>
+    const buttonProoveWebID = document.querySelector("#prooveWebID");
+    buttonProoveWebID.onclick = function() {
+     console.log("1. login");
+     window.easyToken.get_issuer_and_login().then(d => console.log('ok'))
+    // console.log("2. fetch token");
+    // const form_data = get_form_data();
+    // fetch_token(form_data);
+    // console.log("3. add token to webID");
+    // window.easyToken.add_token();
+    // console.log("done");
+    }
+
+     async function after_login(session, name){
+      console.log("2.a change form value");
+      let webIdUrl = session.info.webId;
+      console.log("web id = " + webIdUrl)
+      document.getElementById("labelStatus").textContent = `Logged in with WebID ${session.info.webId}`;
+      document.getElementById("webId").value = `${session.info.webId}`
+      console.log("2.b fetch token");
+      const form_data = get_form_data();
+      await fetch_token(form_data);
+      console.log("3. add token to webID");
+      window.easyToken.add_token();
+      console.log("done");
+
+    }
+    window.easyToken.runAfterLogin(after_login, ['joe'])
+  </script>
 
 <!-- Assist the user with filling out the form by hiding irrelevant fields -->
 <script>
