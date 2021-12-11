@@ -34,7 +34,10 @@
           <label for="webId">Existing WebID:</label>
           <input id="webId" type="text" name="webId" value="<%= prefilled.webId || '' %>">
         </li>
+    OIDC provider:
+      <input type="text" id="oidcIssuer" value="http://localhost:3003"></input>
     <button type="button"  id="prooveWebID">Proove that I own this WebId</button>
+
         <li class="checkbox">
           <label>
             <input type="checkbox" id="register" name="register"<%
@@ -110,34 +113,75 @@
   </div>
 </fieldset>
 <!-- easyToken script for the "Proove that I own this webid button -->
+  <script src="/.well_known/scripts/easy_token/main.js"></script>
   <script>
     const buttonProoveWebID = document.querySelector("#prooveWebID");
     buttonProoveWebID.onclick = function() {
      console.log("1. login");
      window.easyToken.get_issuer_and_login().then(d => console.log('ok'))
-    // console.log("2. fetch token");
-    // const form_data = get_form_data();
-    // fetch_token(form_data);
-    // console.log("3. add token to webID");
-    // window.easyToken.add_token();
-    // console.log("done");
     }
 
-     async function after_login(session, name){
+     async function fetch_token_then_add_it_to_webid(session){
       console.log("2.a change form value");
       let webIdUrl = session.info.webId;
       console.log("web id = " + webIdUrl)
-      document.getElementById("labelStatus").textContent = `Logged in with WebID ${session.info.webId}`;
+      console.log(`Logged in with WebID ${session.info.webId}`)
       document.getElementById("webId").value = `${session.info.webId}`
       console.log("2.b fetch token");
       const form_data = get_form_data();
-      await fetch_token(form_data);
+      const register_url = window.location.origin + '/idp/register/'
+      const token = await fetch_token(form_data, register_url);
+      console.log('fetched token = ' + token)
       console.log("3. add token to webID");
-      window.easyToken.add_token();
+      window.easyToken.add_token(token);
       console.log("done");
 
     }
-    window.easyToken.runAfterLogin(after_login, ['joe'])
+    window.easyToken.afterLoginHook(fetch_token_then_add_it_to_webid)
+
+
+    async function fetch_token(form_data, idp_url) {
+    // a hacky way to get the token is to fail in purpose
+    // a first registration form. This will throw an error
+    // with the verification token that we parse and return
+      const resp = await fetch(idp_url,
+                          {method: "POST",
+                           headers:{
+                             "Content-Type": "application/json",
+                             "Accept": "application/json"},
+                           body:JSON.stringify(form_data)})
+                  .then(resp => resp.json())
+                  .then( data => {
+                    console.log(data)
+                    token = data.details.quad.split(' ')[2].slice(1, -2)
+                    console.log("raw tok " + token)
+                    // document.getElementById("tokenValue").value = token;
+                    return token
+                  })
+                  .catch( (err) => console.log('Error in fetch_token: ' + err))
+      return resp
+    };
+
+
+    function get_form_data() {
+      const webId = document.getElementById("webId").value;
+      // send fake data as we just need a failed login to get the token
+      // only the webID should be correct, other return wrong token
+      data = {"email": "a@a.a",
+               "password": "a",
+               "confirmPassword": "a",
+               "podName": "a",
+               "register": "on",
+               "createPod": "on",
+               "webId": webId           }
+      return data
+    }
+
+
+
+
+
+
   </script>
 
 <!-- Assist the user with filling out the form by hiding irrelevant fields -->
