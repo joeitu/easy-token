@@ -2,53 +2,43 @@
 
 ## Description
 
-This is a fork of the solid community server with the easy token registration feature.
+Easy token is a fork of the solid community server with an improvement on the registration flow.
 
-Easy token allow you to verify you webid by the simple click of a button instead of adding a token manually.
+Easy token allows verifying webids ownership by simply clicking a button instead of manually adding a verification token.
 
-It is for now a whole CSS fork but will become a simple CSS component that can be injected to CSS once I get a grasp of component.js dependency injection.
+It is, for now, a full CSS fork but will become a simple CSS component that can be injected into CSS once I get a grasp of component.js dependency injection.
 
-### Problem
+## Problem
 
-When creating a new Pod with an existing WebID, CSS would ask the user to proove that their own the given WebID by adding a verification token to their WebID document. To do so, the user would to do the following steps:
-
- 1. Open a pod browser (such as penny) in a new window
- 1. Login to the pod browser
+When creating a new Pod with an existing WebID, CSS would ask the user to prove that their own the given WebID by adding a verification token to their WebID document. To do so, the user would do the following steps:
+ 1. Open a pod browser (such as Penny) in a new window
+ 1. Log in to the pod browser
  1. Browse to the webid document
- 1. copy past the verificaiton token tripple and add it to the WebId document ( this operation can be complicated for new commers )
+ 1. Copy past the verification token triple and add it to the WebId document ( this operation can be complicated for newcomers)
 
-### Solution
+## Solution
 
-The proposed solution is to automate the former step by a script using Inrupt client librairy. The steps to verify the WebID are the following:
-
- 1. click the "Verify my WebID" button
- 1. login to your IDP
-
-
-![Easy token button](./img/easytoken_reg.png)
-
+The proposed solution is to automate the former steps with a simple button. The steps to verify the WebID are the following:
+ 1. click the "Proove that I own this webId" button
+ 1. login to your OIDC issuer
+ 
 ## Usage
-
 ```
 git clone https://github.com/joeitu/easy-token.git
 cd easy-token
 npm ci
 npm run start -- -c ./config/default-easy-token.json
 ```
-Assuming that you already have a WebID, you can now go to the registration page `/idp/register/` and choose the option to *Use my existing WebID to access my Pod*
+Assuming that you already have a WebID, you can now go to the registration page `/IDP/register/` and choose the option to *Use my existing WebID to access my Pod*
 
-Enter your OIDC provider and click the "Verify my WebID" button. You should be redirected to your OIDC provider, login with your Credential and your are done. Now you can finish the registration form as usual.
+Enter your OIDC provider and click the "Proove that I own this WebID" button. You should be redirected to your OIDC provider, log in with your credential, and done! Now you can finish the registration form as usual.
 
 ## TODO's
-
- - [ ] clean refactore code
-   - [ ] simplify config import
- - [ ] Enter WebId instead of WebId host
+ - [ ] Clean refactore code
+   - [ ] Simplify config import
  - [ ] Make a component importable with component.js
  - [ ] Verify that the token is correclty added to the webId document
- - [ ] Don't dail quietly, return error message to the user
- - [ ] remove oidcIssuerRegistrationToken after registration
-   - [ ] also add oidcIssuer the webId document after registration?
+ - [ ] Don't fail quietly, return error message to the user
 
 *Bellow the original Solid Community Server README*
 
