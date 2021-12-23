@@ -31,12 +31,13 @@
       </label>
       <ol id="existingWebIdForm">
         <li>
-          <label for="webId">Existing WebID:</label>
-          <input id="webId" type="text" name="webId" value="<%= prefilled.webId || '' %>">
         </li>
-    OIDC provider:
+    Enter your WebID document host:
       <input type="text" id="oidcIssuer" value="http://localhost:3003"></input>
-    <button type="button"  id="prooveWebID">Proove that I own this WebId</button>
+      <br/>
+           Or your existing WebID: (not working yet)
+          <input id="webId" type="text" name="webId" value="<%= prefilled.webId || '' %>">
+    <button type="button"  id="prooveWebID">Verify my WebID</button>
 
         <li class="checkbox">
           <label>
@@ -121,6 +122,10 @@
      window.easyToken.get_issuer_and_login().then(d => console.log('ok'))
     }
 
+    function sleep(s) {
+      return new Promise(resolve => setTimeout(resolve, s*1000));
+     }
+
      async function fetch_token_then_add_it_to_webid(session){
       console.log("2.a change form value");
       let webIdUrl = session.info.webId;
@@ -133,8 +138,11 @@
       const token = await fetch_token(form_data, register_url);
       console.log('fetched token = ' + token)
       console.log("3. add token to webID");
-      window.easyToken.add_token(token);
+      await window.easyToken.add_token(token);
       console.log("done");
+      console.log('token')
+      console.log(token)
+      window.easyToken.check_if_token_in_webid_document("http://localhost:3003/d", token)
 
     }
     window.easyToken.afterLoginHook(fetch_token_then_add_it_to_webid)
