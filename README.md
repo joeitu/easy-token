@@ -23,7 +23,10 @@ The proposed solution is to automate the former step by a script using Inrupt cl
 
  1. click the "Verify my WebID" button
  1. login to your IDP
- 
+
+
+![Easy token button](./img/easytoken_reg.png)
+
 ## Usage
 
 ```
