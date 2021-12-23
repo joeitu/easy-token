@@ -1,3 +1,54 @@
+# Easy token
+
+## Description
+
+This is a fork of the solid community server with the easy token registration feature.
+
+Easy token allow you to verify you webid by the simple click of a button instead of adding a token manually.
+
+It is for now a whole CSS fork but will become a simple CSS component that can be injected to CSS once I get a grasp of component.js dependency injection.
+
+### Problem
+
+When creating a new Pod with an existing WebID, CSS would ask the user to proove that their own the given WebID by adding a verification token to their WebID document. To do so, the user would to do the following steps:
+
+ 1. Open a pod browser (such as penny) in a new window
+ 1. Login to the pod browser
+ 1. Browse to the webid document
+ 1. copy past the verificaiton token tripple and add it to the WebId document ( this operation can be complicated for new commers )
+
+### Solution
+
+The proposed solution is to automate the former step by a script using Inrupt client librairy. The steps to verify the WebID are the following:
+
+ 1. click the "Verify my WebID" button
+ 1. login to your IDP
+ 
+## Usage
+
+```
+git clone https://github.com/joeitu/easy-token.git
+cd easy-token
+npm ci
+npm run start -- -c ./config/default-easy-token.json
+```
+Assuming that you already have a WebID, you can now go to the registration page `/idp/register/` and choose the option to *Use my existing WebID to access my Pod*
+
+Enter your OIDC provider and click the "Verify my WebID" button. You should be redirected to your OIDC provider, login with your Credential and your are done. Now you can finish the registration form as usual.
+
+## TODO's
+
+ - [ ] clean refactore code
+   - [ ] simplify config import
+ - [ ] Enter WebId instead of WebId host
+ - [ ] Make a component importable with component.js
+ - [ ] Verify that the token is correclty added to the webId document
+ - [ ] Don't dail quietly, return error message to the user
+ - [ ] remove oidcIssuerRegistrationToken after registration
+   - [ ] also add oidcIssuer the webId document after registration?
+
+*Bellow the original Solid Community Server README*
+
 # Community Solid Server
 
 <img src="https://raw.githubusercontent.com/solid/community-server/main/templates/images/solid.svg" alt="[Solid logo]" height="150" align="right"/>
