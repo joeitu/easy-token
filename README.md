@@ -21,6 +21,8 @@ When creating a new Pod with an existing WebID, CSS would ask the user to prove 
 The proposed solution is to automate the former steps with a simple button. The steps to verify the WebID are the following:
  1. click the "Proove that I own this webId" button
  1. login to your OIDC issuer
+
+![WebId verification button](./img/easytoken_reg.png)
  
 ## Usage
 ```
@@ -39,6 +41,8 @@ Enter your OIDC provider and click the "Proove that I own this WebID" button. Yo
  - [ ] Make a component importable with component.js
  - [ ] Verify that the token is correclty added to the webId document
  - [ ] Don't fail quietly, return error message to the user
+ - [ ] remove oidcIssuerRegistrationToken after registration
+   - [ ] also add oidcIssuer the webId document after registration?
 
 *Bellow the original Solid Community Server README*
 
