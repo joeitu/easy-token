@@ -31,9 +31,9 @@ cd easy-token
 npm ci
 npm run start -- -c ./config/default-easy-token.json
 ```
-Assuming that you already have a WebID, you can now go to the registration page `/IDP/register/` and choose the option to *Use my existing WebID to access my Pod*
+Assuming that you already have a WebID, you can now go to the registration page `/idp/register/` and choose the option to *Use my existing WebID to access my Pod*
 
-Enter your OIDC provider and click the "Proove that I own this WebID" button. You should be redirected to your OIDC provider, log in with your credential, and done! Now you can finish the registration form as usual.
+Enter your OIDC provider and click the *Verify my WebID* button. You should be redirected to your OIDC provider, log in with your credential, and done! Now you can finish the registration form as usual.
 
 ## TODO's
  - [ ] Clean refactore code
