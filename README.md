@@ -6,7 +6,7 @@ Easy token is a fork of the solid community server with an improvement on the re
 
 Easy token allows verifying webids ownership by simply clicking a button instead of manually adding a verification token.
 
-It is, for now, a full CSS fork but will become a simple CSS component that can be injected into CSS once I get a grasp of component.js dependency injection.
+It is, for now, a full CSS fork but will become a simple CSS component that can be injected into CSS once I get a grasp of component.js dependency injection librairy.
 
 ## Problem
 
