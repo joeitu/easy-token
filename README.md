@@ -24,13 +24,17 @@ The proposed solution is to automate the former steps with a simple button. The 
 
 ![WebId verification button](./img/easytoken_reg.png)
  
-## Usage
+## Install
+
 ```
 git clone https://github.com/joeitu/easy-token.git
 cd easy-token
 npm ci
 npm run start -- -c ./config/default-easy-token.json
 ```
+
+## Usage
+
 Assuming that you already have a WebID, you can now go to the registration page `/idp/register/` and choose the option to *Use my existing WebID to access my Pod*
 
 Enter your OIDC provider and click the *Verify my WebID* button. You should be redirected to your OIDC provider, log in with your credential, and done! Now you can finish the registration form as usual.
